@@ -14,7 +14,8 @@ spec:
         - Values/Stagging-values.yaml             # Path to values.yaml file relative to the Helm chart directory
   destination:
     server: https://kubernetes.default.svc  # Kubernetes cluster API server
-    namespace: stagging     # Namespace to deploy the Helm chart
+    namespace: stagging  
+    createNamespace: true   # Namespace to deploy the Helm chart
   syncPolicy:
     automated:                     # Enable automated sync (optional)
       prune: true                  # Automatically delete resources removed from the chart
