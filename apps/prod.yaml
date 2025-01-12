@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: portfolio                # Name of your ArgoCD application
+  namespace: argocd                # Namespace where ArgoCD is installed
+spec:
+  project: default                 # ArgoCD project (use "default" or create a custom one)
+  source:
+    repoURL: https://github.com/gologolo24/Chart  # GitHub repository containing your Helm chart
+    targetRevision: main           # Branch or tag to pull the chart from (e.g., main)
+    path: .                     # Path to the Helm chart directory in the repo
+    helm:
+      valueFiles:                  # Point to your custom values.yaml file(s)
+        - Values/Production-values.yaml             # Path to values.yaml file relative to the Helm chart directory
+  destination:
+    server: https://kubernetes.default.svc  # Kubernetes cluster API server
+    namespace: prod     # Namespace to deploy the Helm chart
+  syncPolicy:
+    automated:                     # Enable automated sync (optional)
+      prune: true                  # Automatically delete resources removed from the chart
+      selfHeal: true   
