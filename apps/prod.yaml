@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: portfolio                # Name of your ArgoCD application
+  name: production-portfolio                # Name of your ArgoCD application
   namespace: argocd                # Namespace where ArgoCD is installed
 spec:
   project: default                 # ArgoCD project (use "default" or create a custom one)
