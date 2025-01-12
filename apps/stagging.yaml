@@ -15,8 +15,9 @@ spec:
   destination:
     server: https://kubernetes.default.svc  # Kubernetes cluster API server
     namespace: stagging  
-    createNamespace: true   # Namespace to deploy the Helm chart
   syncPolicy:
-    automated:                     # Enable automated sync (optional)
-      prune: true                  # Automatically delete resources removed from the chart
-      selfHeal: true   
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true 
