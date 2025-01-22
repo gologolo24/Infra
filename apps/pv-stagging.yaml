@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redis-storage
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/gologolo24/Infra'  # Replace with your Git repository URL
+    targetRevision: main  # Replace with the appropriate branch/tag
+    path: pv-pvc/stagging  # Replace with the relative path to your manifest directory
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: stagging  # Replace with the target namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences:
+    - group: v1
+      kind: PersistentVolume
+      jsonPointers:
+        - /spec/claimRef
