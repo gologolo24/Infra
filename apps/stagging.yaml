@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: stagging-portfolio                # Name of your ArgoCD application
-  namespace: default                # Namespace where ArgoCD is installed
+  namespace: portfolio                # Namespace where ArgoCD is installed
 spec:
   project: default                 # ArgoCD project (use "default" or create a custom one)
   source:
