@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: parent-app                # Name of the parent application
-  namespace: portfolio             # Namespace where ArgoCD is installed
+  namespace: argocd            # Namespace where ArgoCD is installed
 spec:
   project: default                # ArgoCD project (use "default" or a custom one)
   source:
@@ -11,7 +11,7 @@ spec:
     path: apps                    # Path in the repo containing child application manifests
   destination:
     server:  https://kubernetes.default.svc # Kubernetes cluster API server
-    namespace: portfolio             # Namespace for ArgoCD (parent app is typically deployed here)
+    namespace: argocd             # Namespace for ArgoCD (parent app is typically deployed here)
   syncPolicy:
     automated:                    # Enable automated sync for the parent app (optional)
       prune: true
