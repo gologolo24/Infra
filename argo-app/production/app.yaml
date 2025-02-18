@@ -1,0 +1,46 @@
+replicaCount: 2
+metadata:
+  name: prod
+  
+image:
+  pullPolicy: IfNotPresent
+
+backend:
+  image: golo97/backend:0.0.3
+  port: 8000
+  env:
+    REDIS_HOST: redis-service
+    REDIS_PORT: 6379
+
+
+frontend:
+  image: golo97/frontend:0.0.3
+  port: 3000
+  env: 
+    REACT_APP_API_URL: http://backend.local/orders/
+
+redis:
+  image: redis:alpine
+  port: 6379
+  volumes:
+      name: redis-data
+      path: /data
+  env: prod
+
+
+admin:
+  image: my-admin-image
+  port: 3001
+
+service:
+  type: ClusterIP
+
+networkPolicy:
+  enabled: false
+
+ingress: 
+  back: backend.local
+  front: frontend.local
+
+ingress-nginx:
+  enabled: true

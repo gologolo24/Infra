@@ -1,0 +1,46 @@
+replicaCount: 1
+metadata:
+  name: stagging
+
+image:
+  pullPolicy: IfNotPresent
+
+backend:
+  image: golo97/backend:0.0.4
+  port: 8000
+  env:
+    REDIS_HOST: redis-service.svc.cluster.local
+    REDIS_PORT: 6379
+
+frontend:
+  image: golo97/frontend:0.0.6
+  port: 80
+  env: 
+    REACT_APP_API_URL: /api/v1/orders
+
+redis:
+  image: redis:alpine
+  port: 6379
+  volumes:
+      name: redis-data
+      path: /data
+  env: stagging
+
+
+
+admin:
+  image: my-admin-image
+  port: 3001
+
+service:
+  type: ClusterIP
+
+networkPolicy:
+  enabled: false
+
+ingress: 
+  back: test-backend.kubegroundapp.click
+  front: test-frontend.kubegroundapp.click
+
+ingress-nginx:
+  enabled: false

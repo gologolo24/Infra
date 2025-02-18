@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: prometheus-app-set
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/gologolo24/Infra  # Change to your Git repo
+        revision: main
+        directories:
+          - path: argo-app/*  # Iterates over subdirectories in `argo-app/`
+  template:
+    metadata:
+      name: "{{path.basename}}-prometheus"
+    spec:
+      project: default
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}-monitoring"
+      sources:
+        - repoURL: https://prometheus-community.github.io/helm-charts
+          chart: kube-prometheus-stack
+          targetRevision: "59.0.0"
+          helm:
+            valueFiles:
+              - "argo-app/{{path.basename}}/prometheus.yaml"  # Load env-specific values
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true

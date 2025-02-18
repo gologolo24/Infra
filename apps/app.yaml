@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: app-set
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/gologolo24/Infra  # Change to your Git repo
+        revision: main
+        directories:
+          - path: argo-app/*  # Iterates over subdirectories in `argo-app/`
+  template:
+    metadata:
+      name: "{{path.basename}}-app"
+    spec:
+      project: default
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      sources:
+        - repoURL: https://github.com/gologolo24/Chart  # Change to your Helm chart repo
+          targetRevision: main
+          path: .
+          helm:
+            valueFiles:
+              - "argo-app/{{path.basename}}/values.yaml"  # Load env-specific values
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
