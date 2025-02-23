@@ -24,7 +24,7 @@ spec:
           path: .
           helm:
             valueFiles:
-              - "argo-app/{{path.basename}}/values.yaml"  # Load env-specific values
+              - "{{path.basename}}/values.yaml"  # Load env-specific values
       syncPolicy:
         automated:
           prune: true
