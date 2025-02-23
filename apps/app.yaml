@@ -12,7 +12,7 @@ spec:
           - path: argo-app/*  # Iterates over subdirectories in `argo-app/`
   template:
     metadata:
-      name: "{{path.basename}}-app"
+      name: "{{path.basename}}"
     spec:
       project: default
       destination:
