@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/gologolo24/Infra  # Change to your Git repo
         revision: main
         directories:
-          - path: argo-app/*  # Iterates over subdirectories in `argo-app/`
+          - path: argo-app/*/values.yaml  # Iterates over subdirectories in `argo-app/`
   template:
     metadata:
       name: "{{path.basename}}"
@@ -23,8 +23,8 @@ spec:
           targetRevision: main
           path: .
           helm:
-            valueFiles:
-              - "{{path.basename}}/values.yaml"  # Load env-specific values
+            values: |
+                {{file}}  # Load env-specific values
       syncPolicy:
         automated:
           prune: true
