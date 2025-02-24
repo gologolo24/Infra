@@ -5,11 +5,16 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/gologolo24/Infra  # Change to your Git repo
-        revision: main
-        directories:
-          - path: argo-app/*  # Iterates over subdirectories in `argo-app/`
+    - list:
+        elements:
+          - env: staging
+            namespace: staging
+            revision: main
+            auto-sync: true
+          - env: prod
+            namespace: crm
+            revision: main
+            auto-sync: false
   template:
     metadata:
       name: "{{path.basename}}"
@@ -17,14 +22,14 @@ spec:
       project: default
       destination:
         server: https://kubernetes.default.svc
-        namespace: "{{path.basename}}"
+        namespace: "{{ namespace }}"
       sources:
         - repoURL: https://github.com/gologolo24/Chart  # Change to your Helm chart repo
-          targetRevision: main
+          targetRevision: "{{ revision }}"
           path: .
           helm:
             valueFiles:
-              - "values/{{path.basename}}-values.yaml"  # Load env-specific values
+              - "values/{{ env }}-values.yaml"  # Load env-specific values
       syncPolicy:
         automated:
           prune: true
