@@ -10,11 +10,11 @@ spec:
           - env: staging
             namespace: staging
             revision: main
-            auto-sync: true
+            auto-sync: "true"
           - env: prod
-            namespace: crm
+            namespace: prod
             revision: main
-            auto-sync: false
+            auto-sync: "false"
   template:
     metadata:
       name: "{{path.basename}}"
