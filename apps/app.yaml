@@ -10,11 +10,9 @@ spec:
         elements:
           - env: staging
             namespace: staging
-            revision: main
             auto-sync: "true"
           - env: prod
             namespace: prod
-            revision: main
             auto-sync: "false"
 
     # Git Generator - Automatically detects Helm charts in a Git repository
@@ -35,7 +33,7 @@ spec:
       sources:
         - repoURL: https://github.com/gologolo24/Chart  # Helm chart repo
           targetRevision: "{{ revision }}"
-          path: "{{ path.basename }}"  # Uses dynamic chart path
+          path: "{{ path }}"  # Uses dynamic chart path
           helm:
             valueFiles:
               - "values/{{ env }}-values.yaml"  # Loads environment-specific values
