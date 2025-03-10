@@ -24,7 +24,7 @@ spec:
 
   template:
     metadata:
-      name: '{{ namespace }}'  # App name = namespace + chart name
+      name: "{{ namespace }}-{{ path.basename | lower | replace '_' '-' }}" # App name = namespace + chart name
     spec:
       project: default
       destination:
@@ -37,7 +37,6 @@ spec:
           helm:
             valueFiles:
               - "values/{{ env }}-values.yaml"  # Loads environment-specific values
-
       syncPolicy:
         automated:
           prune: true
