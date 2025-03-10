@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   generators:
+    # List Generator - Defines environments
     - list:
         elements:
           - env: staging
@@ -15,21 +16,30 @@ spec:
             namespace: prod
             revision: main
             auto-sync: "false"
+
+    # Git Generator - Automatically detects Helm charts in a Git repository
+    - git:
+        repoURL: https://github.com/gologolo24/Chart  # Change to your Helm chart repo
+        revision: main
+        directories:
+          - path: /*  # Assumes new Helm charts are stored under 'charts/' in Git
+
   template:
     metadata:
-      name: "{{ namespace }}"
+      name: "{{ namespace }}-{{ path.basename }}"  # App name = namespace + chart name
     spec:
       project: default
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{ namespace }}"
       sources:
-        - repoURL: https://github.com/gologolo24/Chart  # Change to your Helm chart repo
+        - repoURL: https://github.com/gologolo24/Chart  # Helm chart repo
           targetRevision: "{{ revision }}"
-          path: .
+          path: "{{ path.basename }}"  # Uses dynamic chart path
           helm:
             valueFiles:
-              - "values/{{ env }}-values.yaml"  # Load env-specific values
+              - "values/{{ env }}-values.yaml"  # Loads environment-specific values
+
       syncPolicy:
         automated:
           prune: true
