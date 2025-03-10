@@ -26,7 +26,7 @@ spec:
 
   template:
     metadata:
-      name: "{{ namespace }}-patient-crm"  # ✅ Ensure valid app name
+      name: "{{ namespace }}-{{ path }}"  # ✅ Ensure valid app name
     spec:
       project: default
       destination:
