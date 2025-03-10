@@ -6,22 +6,25 @@ metadata:
 spec:
   generators:
     # List Generator - Defines environments
-    - list:
-        elements:
-          - env: staging
-            namespace: staging
-            auto-sync: "true"
-          - env: prod
-            namespace: prod
-            auto-sync: "false"
+    generators:
+    - matrix:
+        generators:
+          # 1️⃣ List Generator - Defines environments
+          - list:
+              elements:
+                - env: staging
+                  namespace: staging
+                  auto-sync: "true"
+                - env: prod
+                  namespace: prod
+                  auto-sync: "false"
 
-    # Git Generator - Automatically detects Helm charts in a Git repository
-    - git:
-        repoURL: https://github.com/gologolo24/Chart  # Change to your Helm chart repo
-        revision: main
-        directories:
-          - path: patient-crm/*  # Assumes new Helm charts are stored under 'charts/' in Git
-
+          # 2️⃣ Git Generator - Detects Helm charts dynamically
+          - git:
+              repoURL: https://github.com/gologolo24/Chart  # Your Helm chart repo
+              revision: main
+              directories:
+                - path: patient-crm/*  # Detect Helm charts inside 'patient-crm/'
   template:
     metadata:
       name: "{{ namespace }}-{{ path.basename | lower | replace '_' '-' }}" # App name = namespace + chart name
