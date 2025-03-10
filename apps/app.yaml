@@ -22,11 +22,11 @@ spec:
               repoURL: https://github.com/gologolo24/Chart  # Your Helm chart repo
               revision: main
               directories:
-                - path: patient-crm/*  # Detects Helm charts inside 'patient-crm/'
+                - path: patient-crm  # Detects Helm charts inside 'patient-crm/'
 
   template:
     metadata:
-      name: "{{ namespace }}-{{ path.basename | lower | replace '_' '-' }}"  # ✅ Ensure valid app name
+      name: patient-crm  # ✅ Ensure valid app name
     spec:
       project: default
       destination:
