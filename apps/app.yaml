@@ -24,7 +24,7 @@ spec:
 
   template:
     metadata:
-      name: "{{ namespace }}-{{ path.basename }}"  # App name = namespace + chart name
+      name: "{{ path.basename }}"  # App name = namespace + chart name
     spec:
       project: default
       destination:
