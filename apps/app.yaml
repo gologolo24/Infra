@@ -5,9 +5,7 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    # List Generator - Defines environments
-    generators:
-    - matrix:
+    - matrix:  # ✅ Matrix must be inside an array
         generators:
           # 1️⃣ List Generator - Defines environments
           - list:
@@ -24,10 +22,11 @@ spec:
               repoURL: https://github.com/gologolo24/Chart  # Your Helm chart repo
               revision: main
               directories:
-                - path: patient-crm/*  # Detect Helm charts inside 'patient-crm/'
+                - path: patient-crm/*  # Detects Helm charts inside 'patient-crm/'
+
   template:
     metadata:
-      name: "{{ namespace }}-{{ path.basename | lower | replace '_' '-' }}" # App name = namespace + chart name
+      name: "{{ namespace }}-{{ path.basename | lower | replace '_' '-' }}"  # ✅ Ensure valid app name
     spec:
       project: default
       destination:
@@ -35,11 +34,12 @@ spec:
         namespace: "{{ namespace }}"
       sources:
         - repoURL: https://github.com/gologolo24/Chart  # Helm chart repo
-          targetRevision: '{{ revision }}'
-          path: '{{ path }}'  # Uses dynamic chart path
+          targetRevision: main
+          path: "{{ path }}"  # ✅ Uses dynamically detected chart path
           helm:
             valueFiles:
-              - "values/{{ env }}-values.yaml"  # Loads environment-specific values
+              - "values/{{ env }}-values.yaml"  # Load environment-specific values
+
       syncPolicy:
         automated:
           prune: true
