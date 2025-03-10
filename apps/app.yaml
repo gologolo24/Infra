@@ -24,7 +24,7 @@ spec:
 
   template:
     metadata:
-      name: "{{ namespace }}"  # App name = namespace + chart name
+      name: '{{ namespace }}'  # App name = namespace + chart name
     spec:
       project: default
       destination:
@@ -32,8 +32,8 @@ spec:
         namespace: "{{ namespace }}"
       sources:
         - repoURL: https://github.com/gologolo24/Chart  # Helm chart repo
-          targetRevision: "{{ revision }}"
-          path: "{{ path }}"  # Uses dynamic chart path
+          targetRevision: '{{ revision }}'
+          path: '{{ path }}'  # Uses dynamic chart path
           helm:
             valueFiles:
               - "values/{{ env }}-values.yaml"  # Loads environment-specific values
