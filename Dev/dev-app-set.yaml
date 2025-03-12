@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: dev-applicationset
+  namespace: argocd
 spec:
   generators:
     - git:
@@ -16,7 +17,7 @@ spec:
       project: default  # Change if using a different ArgoCD project
       source:
         repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
-        targetRevision: main  # Adjust if needed
+        targetRevision: gh-pages # Adjust if needed
         path: '{{path}}'  # Uses each subfolder under "Dev/" as app path
       destination:
         server: https://kubernetes.default.svc  # Change if deploying to a different cluster

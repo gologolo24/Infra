@@ -8,4 +8,4 @@ appVersion: "1.0.0"
 dependencies:
   - name: ipatient
     version: "1.0.5"
-    repository: "https://gologolo24.github.io/Chart"  # Replace with the actual URL
+    repository: "https://gologolo24.github.io/Chart/charts"  # Replace with the actual URL
