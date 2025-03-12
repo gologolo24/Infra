@@ -11,7 +11,7 @@ spec:
         directories:
           - path: Prod/*      # Scan all subfolders inside Prod
           - path: Dev/*       # Scan all subfolders inside Dev
-          - path: Stagging/*  # Scan all subfolders inside Stagging
+          - path: Staging/*  # Scan all subfolders inside Staging
   template:
     metadata:
       name: '{{path.basename}}'  # Uses the folder name as the application name
