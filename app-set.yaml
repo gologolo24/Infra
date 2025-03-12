@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: env-applicationset
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
+        revision: main  # Change if using a different branch
+        directories:
+          - path: Prod/*      # Scan all subfolders inside Prod
+          - path: Dev/*       # Scan all subfolders inside Dev
+          - path: Stagging/*  # Scan all subfolders inside Stagging
+  template:
+    metadata:
+      name: '{{path.basename}}'  # Uses the folder name as the application name
+    spec:
+      project: default  # Change if using a different ArgoCD project
+      source:
+        repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
+        targetRevision: main  # Adjust if needed
+        path: '{{path}}'  # Uses each subfolder as an ArgoCD application path
+      destination:
+        server: https://kubernetes.default.svc  # Adjust if deploying to a different cluster
+        namespace: '{{path.basename}}'  # Deploy each app in a namespace matching its folder name
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true  # Automatically creates namespaces
