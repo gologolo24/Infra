@@ -24,7 +24,7 @@ redis:
   volumes:
       name: redis-data
       path: /data
-  env: staging
+  env: dev
 
 
 

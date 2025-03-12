@@ -1,6 +1,6 @@
 replicaCount: 1
 metadata:
-  name: staging
+  name: prod
 
 image:
   pullPolicy: IfNotPresent
@@ -24,7 +24,7 @@ redis:
   volumes:
       name: redis-data
       path: /data
-  env: staging
+  env: prod
 
 
 
