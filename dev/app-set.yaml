@@ -24,7 +24,7 @@ spec:
             - values.yaml  # Uses each subfolder under "Dev/" as app path
       destination:
         server: https://kubernetes.default.svc  # Change if deploying to a different cluster
-        namespace: '{{{path.dirname}}'  # Each app deploys to a namespace named after the subfolder
+        namespace: '{{path.dirname}}'  # Each app deploys to a namespace named after the subfolder
       syncPolicy:
         automated:
           prune: true
