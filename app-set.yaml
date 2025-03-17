@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
         revision: main  # Change if using a different branch
         directories:
-          - path: /*/app-set.yaml    # Scan all subfolders inside Prod
+          - path: */app-set.yaml    # Scan all subfolders inside Prod
 
   template:
     metadata:
