@@ -10,7 +10,7 @@ spec:
         repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
         revision: main  # Change if using a different branch
         directories:
-          - path: Staging/*  # Automatically detect all subfolders in "Dev"
+          - path: staging/*  # Automatically detect all subfolders in "Dev"
   template:
     metadata:
       name: '{{path.basename}}'  # Uses folder name as the app name
