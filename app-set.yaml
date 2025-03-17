@@ -9,7 +9,9 @@ spec:
         repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
         revision: main  # Change if using a different branch
         directories:
-          - path: "*/"    # Scan all subfolders inside Prod
+          - path: Prod      # Scan all subfolders inside Prod
+          - path: Dev       # Scan all subfolders inside Dev
+          - path: Staging    # Scan all subfolders inside Prod
 
   template:
     metadata:

@@ -20,9 +20,12 @@ spec:
         repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
         targetRevision: main  # Adjust if needed
         path: '{{path}}'  # Uses each subfolder under "Dev/" as app path
+        helm:
+          valueFiles:
+            - values.yaml
       destination:
         server: https://kubernetes.default.svc  # Change if deploying to a different cluster
-        namespace: '{{path.basename}}'  # Each app deploys to a namespace named after the subfolder
+        namespace: '{{{path.dirname}}'  # Each app deploys to a namespace named after the subfolder
       syncPolicy:
         automated:
           prune: true
