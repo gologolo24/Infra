@@ -10,11 +10,11 @@ spec:
         revision: main  # Change if using a different branch
         directories:
           - path: dev
-
-
+          - path: staging
+          - path: prod
   template:
     metadata:
-      name: 'applications'  # Uses the folder name as the application name
+      name: '{{path.basename}}'  # Uses the folder name as the application name
     spec:
       project: default  # Change if using a different ArgoCD project
       source:

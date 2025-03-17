@@ -12,7 +12,7 @@ spec:
           - path: dev/*  # Automatically detect all subfolders in "Dev"
   template:
     metadata:
-      name: '{{path.basename}}'  # Uses folder name as the app name
+      name: '{{path.dirname}}-{{path.basename}}'  # Uses folder name as the app name
     spec:
       project: default  # Change if using a different ArgoCD project
       source:

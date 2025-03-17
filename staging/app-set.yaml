@@ -13,7 +13,7 @@ spec:
           - path: staging/*  # Automatically detect all subfolders in "Dev"
   template:
     metadata:
-      name: '{{path.basename}}'  # Uses folder name as the app name
+      name: '{{path.dirname}}-{{path.basename}}'  # Uses folder name as the app name
     spec:
       project: default  # Change if using a different ArgoCD project
       source:
@@ -25,7 +25,7 @@ spec:
             - values.yaml
       destination:
         server: https://kubernetes.default.svc  # Change if deploying to a different cluster
-        namespace: '{{{path.dirname}}'  # Each app deploys to a namespace named after the subfolder
+        namespace: 'staging'  # Each app deploys to a namespace named after the subfolder
       syncPolicy:
         automated:
           prune: true
