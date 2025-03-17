@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
         targetRevision: main  # Adjust if needed
-        path: '{{path}}'  # Uses each subfolder as an ArgoCD application path
+        path: '{{path}}/app-set.yaml'  # Uses each subfolder as an ArgoCD application path
       destination:
         server: https://kubernetes.default.svc  # Adjust if deploying to a different cluster
         namespace: '{{path.basename}}'  # Deploy each app in a namespace matching its folder name
