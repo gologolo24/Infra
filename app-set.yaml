@@ -9,9 +9,8 @@ spec:
         repoURL: https://github.com/gologolo24/Infra.git  # Your Git repo
         revision: main  # Change if using a different branch
         directories:
-          - path: dev
-          - path: staging
-          - path: prod
+          - path: env
+
   template:
     metadata:
       name: '{{path.basename}}'  # Uses the folder name as the application name
