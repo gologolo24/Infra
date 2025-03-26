@@ -1,5 +1,5 @@
 ipatient:
-  replicaCount: 6
+  replicaCount: 3
   metadata:
     name: prod
 
